@@ -6,8 +6,7 @@ function sortingNums(arr) {
     if(arr.length === 0){
         break;
     }
-    arr.sort((a, b) => b - a);
-    sortedArr.push(arr.shift());
+    sortedArr.push(arr.pop());
   }
   return sortedArr;
 }
