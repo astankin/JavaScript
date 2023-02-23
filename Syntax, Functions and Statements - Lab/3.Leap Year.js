@@ -6,6 +6,7 @@ function find_leap_year(number){
         console.log("no")
     }
 }
+
 find_leap_year(1984)
 find_leap_year(2003)
 find_leap_year(4)

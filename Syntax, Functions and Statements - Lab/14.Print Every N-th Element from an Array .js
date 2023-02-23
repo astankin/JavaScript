@@ -3,8 +3,8 @@ function printElem(arr, n){
     for (let i=0; i<arr.length; i+=n){
         newArr.push(arr[i]);
     }
-    console.log(newArr)
+    return(newArr);
 }
 
-printElem(['5', '20', '31', '4', '20'], 2);
+console.log(printElem(['5', '20', '31', '4', '20'], 2));
 printElem(['dsa','asd', 'test', 'tset'], 2)
