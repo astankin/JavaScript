@@ -11,3 +11,17 @@ function solve(num1, num2, operator){
     console.log(result)
 }
 solve(5,6,"+")
+
+function calc(n1, n2, opr){
+    let calculation = {
+        "+": (n1, n2) => n1 + n2,
+        "-": (n1, n2) => n1 - n2,
+        "*": (n1, n2) => n1 * n2,
+        "/": (n1, n2) => n1 / n2,
+        "%": (n1, n2) => n1 % n2,
+        "**": (n1, n2) => n1 ** n2,
+    }
+    console.log(calculation[opr](n1, n2));
+}
+
+calc(5,6,"+")

@@ -7,3 +7,10 @@ function repestString(str, count){
 }
 
 repestString("abc", 3)
+
+function repeatStr(str, n){
+    console.log(str.repeat(n));
+}
+repeatStr("abc", 3)
+
+console.log("*".repeat(3));
