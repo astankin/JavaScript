@@ -23,7 +23,7 @@ function solve(arr) {
         
         if (elem.split(" ")[0] === "addMovie") {
             let movieName = data.slice(1).join(" ");
-            moviesArr.push(new Movie(movieName, null, null));
+            moviesArr.push(new Movie(movieName));
 
         } else if (data.includes("directedBy")) {
             let idx = data.indexOf("directedBy");
@@ -48,7 +48,7 @@ function solve(arr) {
     }
 
     for (const movie of moviesArr) {
-        if (movie.date != null && movie.director != null)
+        if (movie.date && movie.director)
         console.log(JSON.stringify(movie));
     }
 }
