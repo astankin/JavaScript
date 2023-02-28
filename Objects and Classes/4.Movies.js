@@ -20,7 +20,7 @@ function solve(arr) {
         let data = elem.split(" ");
         let searchedMovieName = "";
         let movie;
-        
+
         if (elem.split(" ")[0] === "addMovie") {
             let movieName = data.slice(1).join(" ");
             moviesArr.push(new Movie(movieName));
