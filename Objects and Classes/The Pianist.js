@@ -44,6 +44,7 @@ function solve(arr) {
             } else if (command === "Remove") {
                 if (serchedPiece === undefined) {
                     console.log(`Invalid operation! ${pieceName} does not exist in the collection.`);
+                    
                 } else {
                     let indexOfObject = piecesCollection.findIndex(object => {
                         return object.name === pieceName;
