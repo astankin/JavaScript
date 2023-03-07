@@ -5,4 +5,4 @@ function matrix(num){
     }
     console.log(line)
 }
-matrix(3)
+matrix(3);
