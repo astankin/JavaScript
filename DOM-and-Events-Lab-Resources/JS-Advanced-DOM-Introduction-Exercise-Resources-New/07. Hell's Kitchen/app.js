@@ -6,7 +6,3 @@ function solve() {
       text.forEach(element => console.log(element));
    }
 }
-let dict = {nasko:{name: "Atanas", surname: "Stankin"}};
-if(dict.hasOwnProperty(name)){
-   console.log('hello');
-}
