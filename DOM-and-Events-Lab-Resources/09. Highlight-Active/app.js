@@ -1,3 +1,12 @@
 function focused() {
-    console.log('TODO:...');
+    let inputElements = document.querySelectorAll('div div input');
+    for (const elem of inputElements) {
+        elem.addEventListener('focus', (e) => {
+            e.currentTarget.parentElement.classList.add('focused');
+        });
+        
+        elem.addEventListener('blur', (e) => {
+            e.currentTarget.parentElement.classList.remove('focused')
+        });
+    }
 }
