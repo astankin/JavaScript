@@ -10,13 +10,14 @@ function arrayManipulation(arr, commands){
         }else if (command === "addMany"){
             let index = Number(data[1]);
             let inserElements = data.slice(2).map(Number);
-            arr = arr.slice(0, index).concat(inserElements, arr.slice(index));
+            // arr = arr.slice(0, index).concat(inserElements, arr.slice(index));
+            arr.splice(index, 0, ...inserElements)
         }else if (command === "contains"){
             let el = Number(data[1]);
             console.log(arr.indexOf(el));
         }else if (command === "remove"){
             let index = Number(data[1]);
-             
+            arr.splice(index, 1);
         }else if (command === "shift"){
             pass
         }else if (command === "sumPairs"){
