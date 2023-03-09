@@ -7,9 +7,9 @@ function create(words) {
       
       newP.textContent = word;
       newP.style.display = 'none';
-      
+
       newDiv.appendChild(newP);
-      newDiv.addEventListener('click', (e) =>{
+      newDiv.addEventListener('click', (e) => {
          e.currentTarget.children[0].style.display = 'block';
       })
       contentElement.appendChild(newDiv);
