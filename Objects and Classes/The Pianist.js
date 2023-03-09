@@ -7,13 +7,13 @@ function solve(arr) {
             this.key = key;
         }
     }
-    function findPieceByName(pieceName) {
-        for (const piece of piecesCollection) {
-            if (piece.name === pieceName) {
-                return piece;
-            }
-        }
-    }
+    // function findPieceByName(pieceName) {
+    //     for (const piece of piecesCollection) {
+    //         if (piece.name === pieceName) {
+    //             return piece;
+    //         }
+    //     }
+    // }
     for (let i = 1; i < arr.length; i++) {
         if (arr[i] === "Stop") {
             piecesCollection.forEach((piece) => console.log(`${piece.name} -> Composer: ${piece.composer}, Key: ${piece.key}`));
@@ -21,15 +21,13 @@ function solve(arr) {
         let n = Number(arr[0]);
         let pieceInfo = arr[i].split("|");
         if (i <= n) {
-            let name = pieceInfo[0];
-            let composer = pieceInfo[1];
-            let key = pieceInfo[2];
+            let [name, composer, key ] = pieceInfo;
             piecesCollection.push(new Piece(name, composer, key))
 
         } else {
-            let command = pieceInfo[0];
-            let pieceName = pieceInfo[1];
-            let serchedPiece = findPieceByName(pieceName);
+            let [command, pieceName] = pieceInfo;
+            let serchedPiece = piecesCollection.find((x) => x.name === pieceName);
+            // let serchedPiece = findPieceByName(pieceName);
             if (command === "Add") {
                 if (serchedPiece === undefined) {
                     let composer = pieceInfo[2];
@@ -46,9 +44,10 @@ function solve(arr) {
                     console.log(`Invalid operation! ${pieceName} does not exist in the collection.`);
                     
                 } else {
-                    let indexOfObject = piecesCollection.findIndex(object => {
-                        return object.name === pieceName;
-                    });
+                    let indexOfObject = piecesCollection.indexOf(serchedPiece);
+                    // let indexOfObject = piecesCollection.findIndex(object => {
+                    //     return object.name === pieceName;
+                    // });
                     piecesCollection.splice(indexOfObject, 1);
                     console.log(`Successfully removed ${pieceName}!`);
                 }

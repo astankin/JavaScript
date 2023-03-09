@@ -8,9 +8,15 @@ function arrayManipulation(arr, commands){
             arr.splice(index, 0, el);
         }else if (command === "addMany"){
             let index = Number(data[1]);
+<<<<<<< HEAD
+            let inserElements = data.slice(2).map(Number);
+            // arr = arr.slice(0, index).concat(inserElements, arr.slice(index));
+            arr.splice(index, 0, ...inserElements)
+=======
             let insertElements = data.slice(2).map(Number);
             // arr = arr.slice(0, index).concat(insertElements, arr.slice(index));
             arr.splice(index, 0, ...insertElements);
+>>>>>>> 06af7d40fce8dde6e1fc39dee0805661e14440a3
         }else if (command === "contains"){
             let el = Number(data[1]);
             console.log(arr.indexOf(el));

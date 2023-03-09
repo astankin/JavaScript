@@ -1,7 +1,10 @@
 function addItem() {
-    let text = document.getElementById("newItemText").value;
-    let li = document.createElement('li');
-    li.appendChild(document.createTextNode(text));
-    document.getElementById("items").appendChild(li);
-    document.getElementById("newItemText").value = "";
+    let textElement = document.getElementById('newItemText');
+    let liItems = document.getElementById('items');
+
+    let newLiElement = document.createElement('li');
+    newLiElement.textContent = textElement.value;
+
+    liItems.appendChild(newLiElement);
+    textElement.value = '';
 }
