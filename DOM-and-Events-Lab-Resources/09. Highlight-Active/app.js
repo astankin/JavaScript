@@ -10,3 +10,5 @@ function focused() {
         });
     }
 }
+
+let sortedDict = Object.entries(dict).sort((a, b) => a[0].localeCompare(b[0]));
