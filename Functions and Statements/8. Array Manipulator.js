@@ -4,14 +4,19 @@ function arrayManipulation(arr, commands){
         let command = data[0];
         if(command === "add"){
             let index = Number(data[1]);
-            let el = data[2];
+            let el = Number(data[2]);
             arr.splice(index, 0, el);
-            console.log(arr);
         }else if (command === "addMany"){
             let index = Number(data[1]);
+<<<<<<< HEAD
             let inserElements = data.slice(2).map(Number);
             // arr = arr.slice(0, index).concat(inserElements, arr.slice(index));
             arr.splice(index, 0, ...inserElements)
+=======
+            let insertElements = data.slice(2).map(Number);
+            // arr = arr.slice(0, index).concat(insertElements, arr.slice(index));
+            arr.splice(index, 0, ...insertElements);
+>>>>>>> 06af7d40fce8dde6e1fc39dee0805661e14440a3
         }else if (command === "contains"){
             let el = Number(data[1]);
             console.log(arr.indexOf(el));
@@ -19,15 +24,26 @@ function arrayManipulation(arr, commands){
             let index = Number(data[1]);
             arr.splice(index, 1);
         }else if (command === "shift"){
-            pass
+            let positions = Number(data[1]);
+            for (let index = 0; index < positions; index++) {
+                arr.push(arr.shift());
+            }
         }else if (command === "sumPairs"){
-            pass
+            let result = [];
+            for (let i = 0; i < arr.length - 1; i+=2) {
+                result.push(arr[i] + arr[i+1]);
+            }
+            if (arr.length % 2 === 1){
+                result.push(arr.pop())
+            }
+            arr = result;
         }else if (command === "print"){
-            pass
+            let output = `[ ${arr.join(', ')} ]`;
+            console.log(output);
+            return;  
         }
     }
-};
+}
 
-arrayManipulation([1, 2, 4, 5, 6, 7],
-    ['addMany 2 9 8 7 6 5', 'contains 5', 'contains 3', 'print']
-    );
+arrayManipulation([2, 2, 4, 2, 4], 
+    ["add 1 4", "sumPairs", "print"]);
