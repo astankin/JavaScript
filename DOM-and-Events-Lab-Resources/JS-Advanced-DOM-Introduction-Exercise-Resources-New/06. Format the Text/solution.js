@@ -7,7 +7,6 @@ function solve() {
     let p = document.createElement("p");
     let text = textArr.splice(0, 3).join('. ') + '.';
     p.textContent = text;
-    console.log(text);
     output.appendChild(p);
   }
 }
