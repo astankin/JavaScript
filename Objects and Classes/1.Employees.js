@@ -15,3 +15,8 @@ solve([
     'Brendan Villarreal'
     ]
     )
+
+let dataDict = arr.reduce((data, employee) => {
+    data[employee] = employee.length;
+    return data;
+}, {})

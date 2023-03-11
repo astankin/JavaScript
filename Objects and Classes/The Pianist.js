@@ -26,10 +26,10 @@ function solve(arr) {
 
         } else {
             let [command, pieceName] = pieceInfo;
-            let serchedPiece = piecesCollection.find((x) => x.name === pieceName);
-            // let serchedPiece = findPieceByName(pieceName);
+            let searchedPiece = piecesCollection.find((x) => x.name === pieceName);
+            // let searchedPiece = findPieceByName(pieceName);
             if (command === "Add") {
-                if (serchedPiece === undefined) {
+                if (searchedPiece === undefined) {
                     let composer = pieceInfo[2];
                     let key = pieceInfo[3];
                     piecesCollection.push(new Piece(pieceName, composer, key));
@@ -40,11 +40,11 @@ function solve(arr) {
                 }
 
             } else if (command === "Remove") {
-                if (serchedPiece === undefined) {
+                if (searchedPiece === undefined) {
                     console.log(`Invalid operation! ${pieceName} does not exist in the collection.`);
                     
                 } else {
-                    let indexOfObject = piecesCollection.indexOf(serchedPiece);
+                    let indexOfObject = piecesCollection.indexOf(searchedPiece);
                     // let indexOfObject = piecesCollection.findIndex(object => {
                     //     return object.name === pieceName;
                     // });
@@ -54,12 +54,12 @@ function solve(arr) {
 
             } else if (command === "ChangeKey") {
 
-                if (serchedPiece === undefined) {
+                if (searchedPiece === undefined) {
                     console.log(`Invalid operation! ${pieceName} does not exist in the collection.`);
                 }
                 else {
                     let newKey = pieceInfo[2];
-                    serchedPiece.key = newKey;
+                    searchedPiece.key = newKey;
                     console.log(`Changed the key of ${pieceName} to ${newKey}!`);
                 }
             }
