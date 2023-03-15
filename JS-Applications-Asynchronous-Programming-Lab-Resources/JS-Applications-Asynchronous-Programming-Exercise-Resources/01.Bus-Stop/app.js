@@ -18,23 +18,8 @@ async function getInfo() {
   try {
     const response = await fetch(url);
     const data = await response.json();
-<<<<<<< Updated upstream
 ;
+
     stopNameElement.textContent = data.name;
     debugger
 }
-=======
-
-    stopNameElement.textContent = data.name;
-
-    Object.entries(data.buses).forEach(([busNumber, timeArrive]) => {
-      const li = document.createElement("li");
-      li.textContent = `Bus ${busNumber} arrives in ${timeArrive} minutes`;
-
-      busList.appendChild(li);
-    });
-  } catch (error) {
-    stopNameElement.textContent = "Error";
-  }
-}
->>>>>>> Stashed changes
