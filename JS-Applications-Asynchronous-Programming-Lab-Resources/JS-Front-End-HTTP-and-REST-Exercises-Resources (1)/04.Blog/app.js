@@ -43,9 +43,9 @@ function attachEvents() {
         h1.textContent =  optionElement.selectedOptions[0].textContent;
 
         const comments = Object.values(data).filter(el => el.postId === optionElement.value);
-        const po = posts.filter(p => p.title === optionElement.selectedOptions[0].textContent);
+        const content = posts.filter(x => x.title === optionElement.selectedOptions[0].textContent);
 
-        document.getElementById('post-body').textContent = `${po[0].body}`;
+        document.getElementById('post-body').textContent = content[0].body;
         for (const key in data) {
             if (data[key].postId === postId) {
                 let newLi = document.createElement('li');
