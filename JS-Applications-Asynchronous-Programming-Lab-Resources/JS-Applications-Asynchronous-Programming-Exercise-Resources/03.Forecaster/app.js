@@ -15,6 +15,7 @@ function attachEvents() {
         }
 
        try {
+        
         let locationName = locationNameElement.value;
 
         let url = `http://localhost:3030/jsonstore/forecaster/locations/`;
@@ -33,9 +34,7 @@ function attachEvents() {
         divForecast.setAttribute('class', 'forecast');
 
         let spanSymbol = document.createElement('span');
-        spanSymbol.setAttribute('class', 'condition');
-        spanSymbol.className += ' symbol'
-
+        spanSymbol.setAttribute('class', 'condition symbol');
 
         let spanCond = document.createElement('span');
         spanCond.setAttribute('class', 'condition')
@@ -54,8 +53,6 @@ function attachEvents() {
 
         spanSymbol.textContent = symbols[condition];
 
-        
-
         span1.textContent = data1.name;
         span2.textContent = `${data1.forecast.low}°/${data1.forecast.high}°`;
         span3.textContent = condition;
@@ -67,7 +64,7 @@ function attachEvents() {
         let url2 = `http://localhost:3030/jsonstore/forecaster/upcoming/${code}`;
         let resp2 = await fetch(url2);
         let data2 = await resp2.json();
-        console.log(data2);
+        // console.log(data2);
 
         ///////////////////////////////////////////////////////////////////
 
