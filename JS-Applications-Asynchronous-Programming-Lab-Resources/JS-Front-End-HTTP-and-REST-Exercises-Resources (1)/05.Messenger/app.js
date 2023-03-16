@@ -1,6 +1,6 @@
 function attachEvents() {
     const sendBtn = document.getElementById('submit');
-    sendBtn.addEventListener('click', postMessage);
+    sendBtn.addEventListener('click', createPost);
 
     const refreshBtn = document.getElementById('refresh');
     refreshBtn.addEventListener('click', getAllMsg);
@@ -26,7 +26,7 @@ function attachEvents() {
         renderMsg(data);
     }
 
-    async function createPost(body){
+    async function postMessage(body){
         const url = 'http://localhost:3030/jsonstore/messenger';
         const response = await fetch(url, {
             method: 'POST',
@@ -39,7 +39,7 @@ function attachEvents() {
         const data = await response.json();
     }
 
-    function postMessage() {
+    function createPost() {
         const authorElement = document.querySelector('input[name="author"]');
         const contentElement = document.getElementsByName('content')[0];
         
@@ -49,8 +49,8 @@ function attachEvents() {
         };
         authorElement.value = '';
         contentElement.value = '';
-        
-        createPost(body)
+
+        postMessage(body)
        
     }
 }
