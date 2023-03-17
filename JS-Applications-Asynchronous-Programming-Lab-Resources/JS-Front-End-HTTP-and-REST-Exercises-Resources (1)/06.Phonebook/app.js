@@ -7,25 +7,24 @@ function attachEvents() {
         const response = await fetch(url);
         const data = await response.json();
 
-        return renderRecords(data);
+        renderRecords(data);
     }
     
     function renderRecords(data){
+
         const ulElement = document.getElementById('phonebook');
         ulElement.innerHTML = '';
         // const content = Object.values(data).map(elem => `${elem.person}: ${elem.phone}`);
         Object.values(data).forEach(elem => {
             let newLi = document.createElement('li');
             newLi.textContent = `${elem.person}: ${elem.phone}`;
-            newLi.setAttribute('data-id', elem._id)
+            newLi.setAttribute('id', elem._id)
             let deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Delete';
             deleteBtn.addEventListener('click', handleDelete);
 
             newLi.appendChild(deleteBtn);
             ulElement.appendChild(newLi);
-            
-
         });
 
     }
@@ -61,7 +60,7 @@ function attachEvents() {
 
     function handleDelete(e){
         let li = e.currentTarget.parentElement;
-        let id = li.getAttribute('data-id');
+        let id = li.id;
         li.remove();                         // removing from the visualized screen
         deleteRecord(id);                    //  delete from the records                           
     }
