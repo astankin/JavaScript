@@ -52,7 +52,6 @@ async function postRecord(body){
     const url = 'http://localhost:3030/jsonstore/collections/books';
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data);
     renderData(data);
   }
   function renderData(data){
@@ -121,9 +120,7 @@ async function postRecord(body){
     }
     titleElement.value = '';
     authorElement.value = '';
-  }
 
-    
     const url = `http://localhost:3030/jsonstore/collections/books/${id}`;
         const response = await fetch(url, {
             method: 'PUT',
@@ -137,6 +134,7 @@ async function postRecord(body){
         console.log(data);
         isEditBtnClicked = false;
         getData();
+  }
   }
 
   function deleteRow(e){
