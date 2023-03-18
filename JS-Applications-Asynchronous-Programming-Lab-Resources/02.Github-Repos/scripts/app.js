@@ -24,7 +24,7 @@ function loadRepos() {
 			return li;
 		});
 
-		list.replaceChildren(...items);     // append li elements to tha parent, replaceChildren - every tyme new content
+		list.replaceChildren(...items);     // append li elements to tha parent, replaceChildren - every time new content
 	}
 	function handleError(err) {
 		const list = document.getElementById('repos');  // visualise the error
