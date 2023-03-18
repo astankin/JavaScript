@@ -2,13 +2,13 @@ function attachEvents() {
   document.getElementById("loadBooks").addEventListener("click", getData);
   document.querySelector("#form button").addEventListener("click", condition);
 
-  let id1 = "";
+  let id_ = "";
 
   let isEditBtnClicked = false;
 
   function condition(e) {
     if (isEditBtnClicked) {
-      editBookData(id1);
+      editBookData(id_);
     } else {
       createRecord(e);
     }
@@ -49,17 +49,19 @@ function attachEvents() {
     const url = "http://localhost:3030/jsonstore/collections/books";
     const response = await fetch(url);
     const data = await response.json();
+    
     renderData(data);
   }
+
   function renderData(data) {
     tbody.innerHTML = "";
     Object.entries(data).forEach(([id, book]) => {
-      // id1 = id;
       let tr = document.createElement("tr");
       tr.setAttribute('id', id);
       let tdTitleElement = document.createElement("td");
       let tdAuthorElement = document.createElement("td");
       let tdButtonsElement = document.createElement("td");
+
       let editBtn = document.createElement("button");
       editBtn.textContent = "Edit";
       editBtn.addEventListener("click", loadEditData);
@@ -86,7 +88,7 @@ function attachEvents() {
   async function loadEditData(e) {
     let tr = e.currentTarget.parentElement.parentElement;
     let id = tr.id;
-    id1 = id;
+    id_ = id;
     isEditBtnClicked = true;
 
     const url = `http://localhost:3030/jsonstore/collections/books`;
