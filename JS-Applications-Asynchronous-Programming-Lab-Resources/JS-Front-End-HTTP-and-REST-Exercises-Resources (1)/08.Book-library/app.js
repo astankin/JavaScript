@@ -49,7 +49,7 @@ function attachEvents() {
     const url = "http://localhost:3030/jsonstore/collections/books";
     const response = await fetch(url);
     const data = await response.json();
-    
+
     renderData(data);
   }
 
@@ -141,5 +141,6 @@ function attachEvents() {
     });
   }
 }
+
 
 attachEvents();
