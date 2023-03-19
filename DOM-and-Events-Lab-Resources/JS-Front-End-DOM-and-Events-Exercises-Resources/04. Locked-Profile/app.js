@@ -11,7 +11,7 @@ function lockedProfile() {
             if (event.target.textContent == "Show more"){
                 div.style.display = 'block';
                 event.target.textContent = "Hide it";
-            }else {
+            } else {
                 div.style.display = 'none';
                 event.target.textContent = 'Show more'
             }
