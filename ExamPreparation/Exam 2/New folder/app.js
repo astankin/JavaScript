@@ -80,31 +80,35 @@ function solve(){
 
         let tr = e.currentTarget.parentElement.parentElement;
         id = tr.id;
-        console.log(id);
-
 
         productName.value = tr.children[0].textContent;
         count.value = tr.children[1].textContent;
         price.value = tr.children[2].textContent;
         
-        
         async function uploadUpdatedData(e, id){
             let body = {
-                product: document.getElementById('product').value,
-                count: document.getElementById('count').value,
-                price: document.getElementById('price').value,
+                product: productName.value,
+                count: count.value,
+                price: price.value,
             }
-            const url = `http://localhost:3030/jsonstore/grocery/${id}`;
-            const response = await fetch(url, {
+            if ( body.product && body.count && body.price){
+                const url = `http://localhost:3030/jsonstore/grocery/${id}`;
+                const response = await fetch(url, {
                 method: 'PATCH',
                 headers: {
                     'Content-type': 'application/json'
                 },
                 body: JSON.stringify(body)
             });
-            
-            const data = await response.json();
-            getData(e);
+                productName.value = '';
+                count.value = '';
+                price.value = '';
+
+                updateProductBtn.disabled = true;
+                addProductBtn.disabled = false;
+
+                getData(e);
+            }
         }
         
     }
