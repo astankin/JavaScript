@@ -1,10 +1,10 @@
 window.addEventListener('load', solve);
 
 function solve() {
-    document.getElementById('add-btn').addEventListener('click', onClickAdd);
+    document.getElementById('add-btn').addEventListener('click', addNewSong);
     const divHitsContainer = document.querySelector('.all-hits-container');
 
-    function onClickAdd(e){
+    function addNewSong(e){
         e.preventDefault();
 
         const genreElement = document.getElementById('genre');
@@ -12,29 +12,57 @@ function solve() {
         const authorElement = document.getElementById('author');
         const dateElement = document.getElementById('date');
 
-        let newDiv = createElement('div', '', '', '', 'hits-info');
+        if (!genreElement.value || !nameElement.value || !authorElement.value || !dateElement.value){
+            return;
+        }
+
+        let newDiv = createElement('div', '', divHitsContainer, '', 'hits-info');
 
         createElement('img', '', newDiv, './static/img/img.png');
         createElement('h2', `Genre: ${genreElement.value}`, newDiv);
         createElement('h2', `Name: ${nameElement.value}`, newDiv);
-        createElement('h2', `Name: ${authorElement.value}`, newDiv);
-        createElement('h2', `Date: ${dateElement.value}`, newDiv);
+        createElement('h2', `Author: ${authorElement.value}`, newDiv);
+        createElement('h3', `Date: ${dateElement.value}`, newDiv);
 
         let saveBtn = createElement('button', 'Save song', newDiv, '', 'save-btn');
+        saveBtn.addEventListener('click', saveSong);
 
         let likeBtn = createElement('button', 'Like song', newDiv, '', 'like-btn');
-        likeBtn.addEventListener('click', like);
-        let deleteBtn = createElement('button', 'Delete', newDiv, '', 'delete-btn');
+        likeBtn.addEventListener('click', likeSong);
 
-        divHitsContainer.appendChild(newDiv);
+        let deleteBtn = createElement('button', 'Delete', newDiv, '', 'delete-btn');
+        deleteBtn.addEventListener('click', deleteSong);
+
+        // divHitsContainer.appendChild(newDiv);
+
+        genreElement.value = '';
+        nameElement.value = '';
+        authorElement.value = '';
+        dateElement.value = '';
 
     }
 
-    function like(e){
+    function deleteSong(e){
+        e.currentTarget.parentElement.remove();
+    }
+
+    function saveSong(e){
+        let parentDiv = e.currentTarget.parentElement;
+        let songSaveBtn  = parentDiv.querySelector('.save-btn');
+        songSaveBtn.remove();
+
+        let songLikeBtn  = parentDiv.querySelector('.like-btn');
+        songLikeBtn.remove();
+
+        parentDiv.remove();
+        let savedDiv = document.querySelector('.saved-container');
+        savedDiv.appendChild(parentDiv);
+    }
+
+    function likeSong(e){
         let likeElement = document.querySelector('.likes p');
-        console.log(likeElement.textContent);
-        let likes = Number(likeElement.textContent.split(': ')[1]) + 1;
-        likeElement.textContent = `Total Likes: ${likes}`;
+        let likesCount = Number(likeElement.textContent.split(': ')[1]) + 1;
+        likeElement.textContent = `Total Likes: ${likesCount}`;
         e.currentTarget.disabled = true;
     }
 
