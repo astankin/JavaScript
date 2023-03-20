@@ -33,8 +33,6 @@ function solve() {
         let deleteBtn = createElement('button', 'Delete', newDiv, '', 'delete-btn');
         deleteBtn.addEventListener('click', deleteSong);
 
-        // divHitsContainer.appendChild(newDiv);
-
         genreElement.value = '';
         nameElement.value = '';
         authorElement.value = '';
