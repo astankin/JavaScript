@@ -1,31 +1,40 @@
+window.addEventListener('load', solve);
 function solve(){
-    document.getElementById('load-product').addEventListener('click', getData);
-    const addProductBtn = document.getElementById('add-product');
-    addProductBtn.addEventListener('click', addProduct);
-
-    const productName = document.getElementById('product');
-    const count = document.getElementById('count');
-    const price = document.getElementById('price');
-
-    function addProduct(e){
+    document.getElementById('load-product').addEventListener('click', (e) => {
         e.preventDefault();
-        
-        if (!productName.value || !count.value || !price.value){
-            return;
-        }
+        loadData();
+    });
+    
+
+    let addBtn = document.getElementById('add-product').addEventListener('click', (e) => {
+        e.preventDefault();
+        uploadData();
+    });
+
+    const productElement = document.getElementById('product');
+    const countElement = document.getElementById('count');
+    const priceElement = document.getElementById('price');
+
+    function getData(){
+        let product = productElement.value;
+        let count = countElement.value;
+        let price = priceElement.value;
 
         let body = {
-            product: productName.value,
-            count: count.value,
-            price: price.value,
+            product,
+            count,
+            price,
         }
-        productName.value = '';
-        count.value = '';
-        price.value = ''; 
-        postNewProduct(e, body);
+        productElement.value = '';
+        countElement.value = '';
+        priceElement.value = '';
+
+        return body;
     }
 
-    async function postNewProduct(e, body){
+    async function uploadData(){
+
+        let body = getData();
         const url = 'http://localhost:3030/jsonstore/grocery/';
         const response = await fetch(url, {
             method: 'POST',
@@ -36,101 +45,91 @@ function solve(){
         });
         
         const data = await response.json();
-
-        getData(e);
+        loadData();
     }
 
-    async function getData(e){
-        e.preventDefault();
+    const tbody = document.getElementById('tbody');
+
+    async function loadData(){
+        tbody.innerHTML = '';
+
         const url = 'http://localhost:3030/jsonstore/grocery/';
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
-        renderProducts(data);
+        renderData(data);
     }
-    function renderProducts(data){
-        const tbody = document.getElementById('tbody');
-        tbody.innerHTML = '';
-        Object.values(data).forEach((item) => {
-            let tr = createElement('tr', '', tbody, '', item._id);
-            createElement('td', item.product, tr, 'name');
-            createElement('td', item.count, tr, 'count-product');
-            createElement('td', item.price, tr, 'product-price');
-            let buttonsParent = createElement('td', '', tr, 'btn');
-            let updateBtn = createElement('button', 'Update', buttonsParent, 'update');
-            updateBtn.addEventListener('click', updateData);
 
-            let deleteBtn = createElement('button', 'Delete', buttonsParent, 'delete');
+    function renderData(data){
+
+        Object.values(data).forEach((el) => {
+
+            const tr = createElement('tr', '', tbody, el._id);
+            createElement('td', el.product, tr, '', 'name');
+            createElement('td', el.count, tr, '', 'count-product');
+            createElement('td', el.price, tr, '', 'product-price');
+            let tdBtn = createElement('td', '', tr, '', 'btn');
+
+            let updateBtn = createElement('button', 'Update', tdBtn, '', 'update');
+            updateBtn.addEventListener('click', getDataForUpdate);
+
+            let deleteBtn = createElement('button', 'Delete', tdBtn, '', 'delete');
             deleteBtn.addEventListener('click', deleteItem);
- 
+
+
         });
     }
 
+    function getDataForUpdate(e){
+        let parent = e.target.parentElement.parentElement;
+        let id = parent.id;
 
-    let id = ''; 
-
-    function updateData(e){
         let updateProductBtn = document.getElementById('update-product');
-        updateProductBtn.addEventListener('click', () => {
-            uploadUpdatedData(e, id);
-        });
+        updateProductBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            updateData(id);
+        })
 
         updateProductBtn.disabled = false;
-        addProductBtn.disabled = true;
+        document.getElementById('add-product').disabled = true;
 
-        let tr = e.currentTarget.parentElement.parentElement;
-        id = tr.id;
 
-        productName.value = tr.children[0].textContent;
-        count.value = tr.children[1].textContent;
-        price.value = tr.children[2].textContent;
+        let product = parent.querySelector('.name').textContent;
+        let count = parent.querySelector('.count-product').textContent;
+        let price = parent.querySelector('.product-price').textContent;
+
+        productElement.value = product;
+        countElement.value = count;
+        priceElement.value = price;
+    }
+
+    async function updateData(id){
+        let body = getData();
+        const url = `http://localhost:3030/jsonstore/grocery/${id}`;
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
         
-        async function uploadUpdatedData(e, id){
-            let body = {
-                product: productName.value,
-                count: count.value,
-                price: price.value,
-            }
-            if ( body.product && body.count && body.price){
-                const url = `http://localhost:3030/jsonstore/grocery/${id}`;
-                const response = await fetch(url, {
-                method: 'PATCH',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            });
-                productName.value = '';
-                count.value = '';
-                price.value = '';
-
-                updateProductBtn.disabled = true;
-                addProductBtn.disabled = false;
-
-                getData(e);
-            }
-        }
-        
+        const data = await response.json();
+        loadData();
     }
 
 
-    function deleteItem(e) {
-        let tr = e.currentTarget.parentElement.parentElement;
-        let id = tr.id;
-        tr.remove();
-    
-        deleteRecord(id);
-      }
-      async function deleteRecord(id) {
+    async function deleteItem(e){
+        let parent = e.target.parentElement.parentElement;
+        let id = parent.id;
+        console.log(id);
         const url = `http://localhost:3030/jsonstore/grocery/${id}`;
         const response = await fetch(url, {
-          method: "DELETE",
-        });
-      }
+                  method: 'DELETE'});
+        loadData();
+    }
 
 
-
-    function createElement(type, content, parent, className, id, src){
+    function createElement(type, content, parent, id, className, src){
         let newElement = document.createElement(type);
 
         if (content && type === 'input'){
@@ -155,4 +154,3 @@ function solve(){
 
 
 }
-solve();
