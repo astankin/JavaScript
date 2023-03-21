@@ -72,7 +72,7 @@ function solve(){
     function updateData(e){
         let updateProductBtn = document.getElementById('update-product');
         updateProductBtn.addEventListener('click', () => {
-            uploaUpdatedData(e, id);
+            uploadUpdatedData(e, id);
         });
 
         updateProductBtn.disabled = false;
@@ -85,8 +85,7 @@ function solve(){
         count.value = tr.children[1].textContent;
         price.value = tr.children[2].textContent;
         
-        
-        async function uploaUpdatedData(e, id){
+        async function uploadUpdatedData(e, id){
             let body = {
                 product: productName.value,
                 count: count.value,
@@ -101,9 +100,15 @@ function solve(){
                 },
                 body: JSON.stringify(body)
             });
-            
-            const data = await response.json();
-            getData(e);
+                productName.value = '';
+                count.value = '';
+                price.value = '';
+
+                updateProductBtn.disabled = true;
+                addProductBtn.disabled = false;
+
+                getData(e);
+            }
         }
         
     }
