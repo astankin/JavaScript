@@ -29,7 +29,7 @@ for (const data of commands) {
     } else if (command === 'Refuel'){
         pass
     } else if (command === 'Revert'){
-        pass
+        pass 
     }
 }
 }
