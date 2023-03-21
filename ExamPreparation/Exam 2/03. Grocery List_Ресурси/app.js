@@ -72,7 +72,7 @@ function solve(){
     function updateData(e){
         let updateProductBtn = document.getElementById('update-product');
         updateProductBtn.addEventListener('click', () => {
-            uploaUpdatedData(e, id);
+            uploaUpdatedData(id);
         });
 
         updateProductBtn.disabled = false;
@@ -88,7 +88,7 @@ function solve(){
         price.value = tr.children[2].textContent;
         
         
-        async function uploaUpdatedData(e, id){
+        async function uploaUpdatedData(id){
             let body = {
                 product: document.getElementById('product').value,
                 count: document.getElementById('count').value,
@@ -104,7 +104,7 @@ function solve(){
             });
             
             const data = await response.json();
-            getData(e);
+            
         }
         
     }
