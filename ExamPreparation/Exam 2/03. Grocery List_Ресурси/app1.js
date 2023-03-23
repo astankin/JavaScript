@@ -8,6 +8,47 @@ function solve(){
         loadData();
     });
 
+    let loadBtn = document.getElementById('load-product');
+    loadBtn.addEventListener('click', (e) =>{
+        e.preventDefault();
+        uploadData();
+    });
+
+    const productElement = document.getElementById('product');
+    const countElement = document.getElementById('count');
+    const priceElement = document.getElementById('price');
+
+    function getInputData(){
+        let product = productElement.value;
+        let count = countElement.value;
+        let price = priceElement.value;
+
+        let body = {
+            product,
+            count,
+            price,
+        }
+
+        productElement.value = '';
+        countElement.value = '';
+        priceElement.value = '';
+
+        return body;
+    }
+
+    async function uploadData(){
+        let body = getInputData();
+        const promise = await fetch(BASE_URL,  {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+        const data = await promise.json();
+        loadData();
+    }
+
     const tbody = document.getElementById('tbody');
 
     async function loadData(){
@@ -39,8 +80,13 @@ function solve(){
     function updateItem(){
         
     }
-    function deleteItem(){
-
+    async function deleteItem(e){
+        let parent = e.target.parentElement.parentElement;
+        let id = parent.id;
+        const url = `http://localhost:3030/jsonstore/grocery/${id}`;
+        const response = await fetch(url, {
+                  method: 'DELETE'});
+        loadData();
     }
 
     function createElement(type, content, parent, id, className, src){

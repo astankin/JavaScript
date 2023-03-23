@@ -93,11 +93,6 @@ function solve() {
       let article = createElement('article', '', li)
       createElement('h4', `${firstName} ${lastName}`, article);
       createElement('p', `${gender}, ${age}`, article);
-      // if (dishInfo.includes('Dish description: ')){
-      //   createElement('p', `${dishInfo}`, article);
-      // } else {
-      //   createElement('p', `Dish description: ${dishInfo}`, article);
-      // }
       createElement('p', `Dish description: ${dishInfo}`, article);
       let editBtn = createElement('button', 'Edit', li, 'edit-btn');
       editBtn.addEventListener('click', editData);
@@ -124,7 +119,7 @@ function solve() {
     let index = parentLi.querySelectorAll('p')[1].textContent.indexOf(': ');
     dishInfoElement.value = parentLi.querySelectorAll('p')[1].textContent.slice(index + 2);
     parentLi.remove();
-    
+
     counter.textContent = Number(counter.textContent) - 1;
   }
 
