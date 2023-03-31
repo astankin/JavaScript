@@ -52,11 +52,11 @@ function attachEvents() {
     deleteBtn.addEventListener('click', deleteItem);
 
     let submitBtn = createElement('button', 'Submit', parent);
-    submitBtn.addEventListener('click', uploadEdid);
+    submitBtn.addEventListener('click', uploadEdit);
 
   }
 
-  async function uploadEdid(e){
+  async function uploadEdit(e){
     const parent = e.target.parentElement;
     const inputVal = parent.querySelector('input').value;
     const id = parent.id;

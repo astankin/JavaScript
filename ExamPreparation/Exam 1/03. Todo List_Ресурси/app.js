@@ -1,95 +1,57 @@
-const BASE_URL = 'http://localhost:3030/jsonstore/tasks';
-const addButton = document.querySelector("#add-button");
-const loadButton = document.getElementById('load-button');
-const ulElement = document.querySelector("#todo-list");
-const inputElement = document.querySelector("#title");
+function attachEvents(){
+  const url = 'http://localhost:3030/jsonstore/tasks/';
+  const inputElement = document.getElementById('title');
+  const addBtn = document.getElementById('add-button');
 
-function attachEvents() {
-  loadButton.addEventListener('click', loadTasksHandler);
-  addButton.addEventListener('click', addTodo);
-}
+  const ul = document.getElementById('todo-list');
 
-function loadTasksHandler(e) {
-  if (e) {
+  document.getElementById('load-button').addEventListener('click', (e) => {
     e.preventDefault();
-  }
-  ulElement.innerHTML = '';
-  fetch(BASE_URL)
-    .then((res) => res.json())
-    .then((list) => {
-      Object.values(list)
-        .forEach(({ name, _id }) => {
-          const liItem = createElement('li', '', ulElement);
-          createElement('span', name, liItem);
-          const removeBtn = createElement('button', 'Remove', liItem);
-          removeBtn.id = _id;
-          removeBtn.addEventListener('click', removeTaskHandler);
+    getData();
+  });
 
-          const editBtn = createElement('button', 'Edit', liItem);
-          editBtn.id = _id;
-          editBtn.addEventListener('click', createEditInput);
-        })
-    })
-}
-
-function addTodo(event) {
-    event.preventDefault();
-    const headers = {
-      method: 'POST',
-      body: JSON.stringify({ name: inputElement.value })
-    };
-    if (typeof inputElement.value !== "string" ||
-      inputElement.value.length <= 3) {
-      return;
+  async function getData(e){
+    if (e){
+      e.preventDefault();
     }
-    fetch(BASE_URL, headers)
-      .then(() => loadTasksHandler(event))
-    inputElement.value = "";
-}
+    ul.innerHTML = '';
 
-function createEditInput(e) {
-  const parentElement = e.target.parentElement;
-  e.target.parentElement.innerHTML = `
-  <input value='${
-    e.target.parentElement.querySelector("span").textContent
-  }'/>
-    <button id=${e.target.id} class="remove-button">Remove</button>
-    <button id=${e.target.id} class="submit-button">Submit</button>`;
-  parentElement.querySelector('.remove-button')
-    .addEventListener('click', removeTaskHandler);
-  parentElement.querySelector('.submit-button')
-    .addEventListener('click', editTaskHandler);
-}
-
-function removeTaskHandler(e) {
-  const id = e.target.id;
-  const headers = {
-    method: 'DELETE'
-  };
-
-  fetch(BASE_URL + `/${id}`, headers)
-    .then(() => loadTasksHandler());
-}
-
-function editTaskHandler(e) {
-  const inputVal = e.target.parentElement.querySelector('input').value;
-  const headers = {
-    method: 'PATCH',
-    body: JSON.stringify({ name: inputVal })
-  };
-
-  fetch(BASE_URL + `/${e.target.id}`, headers)
-    .then(() => loadTasksHandler(e));
-}
-
-function createElement(elementTag, value, parent) {
-  const newElement = document.createElement(elementTag);
-  newElement.innerHTML = value;
-  if (parent) {
-    parent.appendChild(newElement);
+    const url = 'http://localhost:3030/jsonstore/tasks/';
+    const response = await fetch(url);
+    const data = await response.json();
+    renderData(data)
   }
 
-  return newElement;
+  function renderData(data){
+    ul.innerHTML = '';
+    Object.values(data).forEach(elem => {
+      let li = createElement('li', '', ul, elem._id);
+      createElement('span', elem.name, li);
+      let removeBtn = createElement('button', 'Remove', li);
+      let editBtn = createElement('button', 'Edit', li);
+    });
+
+  }
+  function createElement(type, content, parent, id, className){
+    let newElement = document.createElement(type);
+
+    if (content && type === 'input'){
+        newElement.value = content;
+    } else if (content) {
+        newElement.textContent = content;
+    }
+    if (parent){
+        parent.appendChild(newElement);
+    }
+    if (className){
+        newElement.className = className;
+    }
+    if (id){
+        newElement.id = id;
+    }
+    return newElement;
 }
 
+
+}
 attachEvents();
