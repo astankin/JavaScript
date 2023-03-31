@@ -76,6 +76,7 @@ function attachEvents() {
 
   function getInputData(){
     let title = inputElement.value;
+
     let body = {
         name: title
     }
@@ -85,6 +86,9 @@ function attachEvents() {
 
   async function uploadData(){
     let body = getInputData();
+    if (!body.name){
+      return;
+    }
     const url = 'http://localhost:3030/jsonstore/tasks/';
     const response = await fetch(url, {
         method: 'POST',
