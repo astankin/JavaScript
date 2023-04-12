@@ -1,19 +1,18 @@
 function solve(input) {
   let n = Number(input.shift());
   let data = {};
+
   for (let i = 0; i < n; i++) {
     let line = input.shift();
     let [assignee, taskId, title, status, estPoints] = line.split(":");
-    if (!data.hasOwnProperty(assignee)) {
-      data[assignee] = [
-        { taskId, title, status, estPoints: Number(estPoints) },
-      ];
+    if (!data.hasOwnProperty(assignee)) {                // !data.hasOwnProperty[assignee] -грешка
+      data[assignee] = [{ taskId, title, status, estPoints: Number(estPoints) }];
     } else {
-      data[assignee].push([
-        { taskId, title, status, estPoints: Number(estPoints) },
-      ]);
+      data[assignee].push({taskId, title, status, estPoints: Number(estPoints)});
+      // data[assignee].push([{ taskId, title, status, estPoints: Number(estPoints) }]) - грешката
     }
   }
+
 
   for (let elem of input) {
     let line = elem.split(":");
