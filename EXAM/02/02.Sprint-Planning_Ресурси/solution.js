@@ -41,7 +41,7 @@ function solve() {
         let div = createElement('div', article, `${label}`);
         if (label == 'Feature') {
             div.setAttribute('class', 'task-card-label feature');
-            div.innerHTMLt = `Feature &#8865;`;
+            div.innerHTML = `Feature &#8865;`;
         } else if (label == 'Low Priority Bug') {
             div.setAttribute('class', 'task-card-label low-priority')
             div.innerHTML = `Low Priority Bug &#9737;`;

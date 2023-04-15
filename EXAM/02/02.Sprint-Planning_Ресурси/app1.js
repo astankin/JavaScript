@@ -58,7 +58,8 @@ function solve(){
         hiddenInput.value += `task-${n}`;
 
         let article = createElement('article', '', section, `task-${n}`, 'task-card');
-        createElement('div', textContent, article, '', `task-card-label ${className}`);
+        let div1 = createElement('div', textContent, article, '', `task-card-label ${className}`);
+        // div1.innerHTML = `Feature &#8865;`;
         createElement('h3', title, article, '', 'task-card-title');
         createElement('p', description, article, '', 'task-card-description');
         createElement('div', `Estimate at ${estPoints} pts`, article, '', 'task-card-points');
